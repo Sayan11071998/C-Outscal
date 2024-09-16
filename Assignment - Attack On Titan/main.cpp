@@ -1,8 +1,11 @@
 #include <iostream>
+#include <ctime>
 
 using namespace std;
 
 void gameStory(){
+    system("clear");
+
     cout << "Hello and Welcome to Attack on Titan!" << endl;
     cout << "-------------------------------------" << endl;
     cout << "• In a world ravaged by colossal giants, humanity teeters on the brink of extinction." << endl;
@@ -21,13 +24,7 @@ void gameStory(){
 
 class Player{
     public:
-        Player(int Health, int Defense, int Stamina, int Attack_Power, int Healing_Power){
-            health = Health;
-            defense = Defense;
-            stamina = Stamina;
-            attackPower = Attack_Power;
-            healingPower = Healing_Power;
-
+        Player(){
             cout << "• Hello! I am Eren Yeager. Let me tell you my story!" << endl;
             cout << "• The walls have always been our prison, but I refuse to live in fear any longer." << endl;
             cout << "• Every Titan I see is a reminder of the world that was stolen from us." << endl;
@@ -36,12 +33,43 @@ class Player{
             cout << "• This is not just a fight for survival; it's a fight for our freedom and our future." << endl;
         }
 
+        int GetHealth(){
+            return health;
+        }
+
+        int GiveDamage(){
+            srand(time(0));
+            int randomDamage = (rand() % (maxAttackPower - minAttackPower + 1) + minAttackPower);
+
+            return randomDamage;
+        }
+
+        void Takedamage(int damage){
+            if(health > 0){
+                cout << "Careful!! Eren has received a critical damage." << endl;
+                cout << "Titans are dealing a damage of " << damage << "to Eren!!" << endl;
+                health -= damage;
+                cout << "Eren's current health after receiving the damage is : " << health << endl;
+            } else{
+                cout << "Eren Died!!!" << endl;
+            }
+        }
+
+        void Heal(){
+            srand(time(0));
+            int randomHeal = (rand() % (maxHealingPower - minHealingPower + 1) + minHealingPower);
+
+            health += randomHeal;
+            cout << "Eren healed with HP of " << randomHeal << endl;
+            cout << "Eren's health after healing is : " << health << endl;
+        }
+
     private:
-        int health;
-        int defense;
-        int stamina;
-        int attackPower;
-        int healingPower;
+        int health = 100;
+        int maxAttackPower = 20;
+        int minAttackPower = 5;
+        int maxHealingPower = 30;
+        int minHealingPower = 10;
 };
 
 int main()
@@ -54,7 +82,7 @@ int main()
         cin >> userInput;
 
         if(userInput == 'S' || userInput == 's'){
-            Player eren = Player(100, 100, 100, 20, 15);
+            Player eren = Player();
         } else{
             cout << "Thanks for playing Attack on Titam!!" << endl;
         }
