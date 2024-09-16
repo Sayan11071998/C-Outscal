@@ -4,8 +4,6 @@
 using namespace std;
 
 void gameStory(){
-    system("clear");
-
     cout << "Hello and Welcome to Attack on Titan!" << endl;
     cout << "-------------------------------------" << endl;
     cout << "• In a world ravaged by colossal giants, humanity teeters on the brink of extinction." << endl;
@@ -25,21 +23,40 @@ void gameStory(){
 class Player{
     public:
         Player(){
-            cout << "• Hello! I am Eren Yeager. Let me tell you my story!" << endl;
+            cout << "*** Hello! I am Eren Yeager. Let me tell you my story! ***" << endl;
             cout << "• The walls have always been our prison, but I refuse to live in fear any longer." << endl;
             cout << "• Every Titan I see is a reminder of the world that was stolen from us." << endl;
             cout << "• I will fight to my last breath to uncover the truth and free humanity from these chains." << endl;
             cout << "• With every battle, I inch closer to my goal — to see the day when we can live without fear of the Titans." << endl;
             cout << "• This is not just a fight for survival; it's a fight for our freedom and our future." << endl;
+            cout << "********************************************************************************************************************************************" << endl;
+            cout << endl;
         }
 
         int GetHealth(){
             return health;
         }
 
+        int GetMaxAttackPower(){
+            return maxAttackPower;
+        }
+
+        int GetMinAttackPower(){
+            return minAttackPower;
+        }
+
+        int GetMaxHealingPower(){
+            return maxHealingPower;
+        }
+
+        int GetMinHealingPower(){
+            return minHealingPower;
+        }
+
         int GiveDamage(){
             srand(time(0));
             int randomDamage = (rand() % (maxAttackPower - minAttackPower + 1) + minAttackPower);
+            cout << "Eren is performing attack of " << randomDamage << " to the Titan!!" << endl;
 
             return randomDamage;
         }
@@ -47,7 +64,7 @@ class Player{
         void Takedamage(int damage){
             if(health > 0){
                 cout << "Careful!! Eren has received a critical damage." << endl;
-                cout << "Titans are dealing a damage of " << damage << "to Eren!!" << endl;
+                cout << "Titan is dealing a damage of " << damage << " to Eren!!" << endl;
                 health -= damage;
                 cout << "Eren's current health after receiving the damage is : " << health << endl;
             } else{
@@ -72,6 +89,56 @@ class Player{
         int minHealingPower = 10;
 };
 
+class Enemy{
+    public:
+        Enemy(){
+            cout << endl;
+            cout << "*** Suddenly a Titan appeared!! ***" << endl;
+            cout << "• I am the harbinger of destruction, emerging from the depths of darkness." << endl;
+            cout << "• With every step, the earth trembles, and with every roar, fear spreads among the walls." << endl;
+            cout << "• My immense power and unyielding hunger make me a force to be reckoned with." << endl;
+            cout << "• I am not merely a beast; I am a relentless storm that tests the very will of humanity." << endl;
+            cout << "• Prepare for a battle where every clash echoes the struggle for survival." << endl;
+            cout << endl;
+        }
+
+        int GetHealth(){
+                return health;
+        }
+
+        int GetMaxAttackPower(){
+            return maxAttackPower;
+        }
+
+        int GetMinAttackPower(){
+            return minAttackPower;
+        }
+
+        int GiveDamage(){
+            srand(time(0));
+            int randomDamage = (rand() % (maxAttackPower - minAttackPower + 1) + minAttackPower);
+            cout << "Titan is performing attack of " << randomDamage << " to Eren!!" << endl;
+
+            return randomDamage;
+        }
+
+        void Takedamage(int damage){
+            if(health > 0){
+                cout << "Titan has received a critical damage." << endl;
+                cout << "Eren is dealing a damage of " << damage << " to Titan!!" << endl;
+                health -= damage;
+                cout << "Titan's current health after receiving the damage is : " << health << endl;
+            } else{
+                cout << "Titan Died!!!" << endl;
+            }
+        }
+
+    private:
+        int health = 100;
+        int maxAttackPower = 40;
+        int minAttackPower = 20;
+};
+
 int main()
 {
     gameStory();
@@ -80,11 +147,20 @@ int main()
     do{
         cout << "Press S to start the game or any other key to exit!!" << endl;
         cin >> userInput;
+        cout << endl;
 
         if(userInput == 'S' || userInput == 's'){
-            Player eren = Player();
+            Player eren;
+            cout << "Eren's Health is : " << eren.GetHealth() << endl;
+            cout << "Eren's attack power range is between " << eren.GetMinAttackPower() << " to " << eren.GetMaxAttackPower() << endl;
+            cout << "Eren's healing power range is between " << eren.GetMinHealingPower() << " to " << eren.GetMaxHealingPower() << endl;
+
+            Enemy titan;
+            cout << "Titan's Health is : " << titan.GetHealth() << endl;
+            cout << "Titan's attack power range is between " << titan.GetMinAttackPower() << " to " << titan.GetMaxAttackPower() << endl;
+            
         } else{
-            cout << "Thanks for playing Attack on Titam!!" << endl;
+            cout << "Thanks for playing Attack on Titan!!" << endl;
         }
 
     } while (userInput == 'S' || userInput == 's');
